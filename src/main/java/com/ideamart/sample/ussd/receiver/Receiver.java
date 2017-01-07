@@ -71,53 +71,129 @@ public class Receiver implements MoUssdListener {
         } else {
             try {
                 String message = moUssdReq.getMessage();
-                if (message.equals("1")) {
-                    Subscription subscription = new Subscription();
-                    subscription.subscribeUser(moUssdReq.getSourceAddress());
-                    MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.REGISTER_MENU, Constants.ApplicationConstants.USSD_OP_MT_CONT);
-                    sendRequest(request);
-                    setMoUssdReq(moUssdReq);
-                    new java.util.Timer().schedule(
-                            new java.util.TimerTask() {
+                String flow = userDAO.getFlow(moUssdReq.getSourceAddress());
+                if (flow.equals("1")) {
+                    if (message.equals("1") || userDAO.getMessage(moUssdReq.getSourceAddress()).equals("Registering")) {
 
-                                private MoUssdReq moUssdReq;
-                                @Override
-                                public void run() {
-                                    // your code here
-                                    System.out.println("Send welcome sms");
-                                    moUssdReq = getMoUssdReq();
-                                    SendMessage sendMessage = new SendMessage();
-                                    sendMessage.SendMessage(Constants.MessageConstants.HELP_SMS, moUssdReq.getApplicationId(),
-                                            moUssdReq.getSourceAddress(), Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
+                        String userMessage = Constants.MessageConstants.REG_MSG;
+                        String userName = userDAO.getUserNameByAddress(moUssdReq.getSourceAddress());
+                        if (userName.equals("null")) {
+                            userDAO.updateUserMessage(moUssdReq.getSourceAddress(), "Registering");
+                            userDAO.updateUserFlowStageNumberByInput(moUssdReq.getSourceAddress(), 0);
+                            Subscription subscription = new Subscription();
+                            subscription.subscribeUser(moUssdReq.getSourceAddress());
+                            userDAO.RegisterUser(moUssdReq.getSourceAddress());
+                            userMessage = userMessage + Constants.MessageConstants.REG_MSG_NAME;
+                            MtUssdReq request = createRequest(moUssdReq, userMessage, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                            sendRequest(request);
+                            userDAO.updateUserFlowStageNumber(moUssdReq.getSourceAddress());
+                            setMoUssdReq(moUssdReq);
+                            new java.util.Timer().schedule(
+                                    new java.util.TimerTask() {
+
+                                        private MoUssdReq moUssdReq;
+
+                                        @Override
+                                        public void run() {
+                                            // your code here
+                                            System.out.println("Send welcome sms");
+                                            moUssdReq = getMoUssdReq();
+                                            SendMessage sendMessage = new SendMessage();
+                                            sendMessage.SendMessage(Constants.MessageConstants.HELP_MENU, moUssdReq.getApplicationId(),
+                                                    moUssdReq.getSourceAddress(), Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
+                                        }
+                                    },
+                                    15000
+                            );
+
+                        } else {
+                            int stage = userDAO.getUserFlowStageNumber(moUssdReq.getSourceAddress());
+                            if (stage == 1) {
+                                //UpdateUserName
+                                userDAO.updateUserName(moUssdReq.getSourceAddress(), message);
+                                userMessage = userMessage + Constants.MessageConstants.REG_MSG_SEX;
+                                MtUssdReq request = createRequest(moUssdReq, userMessage, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                sendRequest(request);
+                                userDAO.updateUserFlowStageNumber(moUssdReq.getSourceAddress());
+
+                            } else if (stage == 2) {
+                                if (message.equals("1")) {
+                                    userDAO.updateUserSex(moUssdReq.getSourceAddress(), "male");
+                                    userMessage = userMessage + Constants.MessageConstants.REG_MSG_BIRTHDATE;
+                                    MtUssdReq request = createRequest(moUssdReq, userMessage, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                    sendRequest(request);
+                                    userDAO.updateUserFlowStageNumber(moUssdReq.getSourceAddress());
+                                } else if (message.equals("2")) {
+                                    userDAO.updateUserSex(moUssdReq.getSourceAddress(), "female");
+                                    userMessage = userMessage + Constants.MessageConstants.REG_MSG_BIRTHDATE;
+                                    MtUssdReq request = createRequest(moUssdReq, userMessage, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                    sendRequest(request);
+                                    userDAO.updateUserFlowStageNumber(moUssdReq.getSourceAddress());
+                                } else {
+                                    userMessage = Constants.MessageConstants.REG_MSG_SEX_ERROR + Constants.MessageConstants.REG_MSG_SEX;
+                                    MtUssdReq request = createRequest(moUssdReq, userMessage, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                    sendRequest(request);
+
                                 }
-                            },
-                            15000
-                    );
-                    return;
-                } else if (message.equals("2")) {
-                    SendMessage sendMessage = new SendMessage();
-                    sendMessage.SendMessage(Constants.MessageConstants.HELP_SMS, moUssdReq.getApplicationId(),
-                            moUssdReq.getSourceAddress(), Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
-                    MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.HELP_MENU, Constants.ApplicationConstants.USSD_OP_MT_CONT);
-                    sendRequest(request);
-                    return;
-                } else if (message.equals("3")) {
-                    MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.DETAILS_MENU, Constants.ApplicationConstants.USSD_OP_MT_CONT);
-                    sendRequest(request);
-                } else if (message.equals("0")) {
-                    MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.WELCOME_MESSAGE, Constants.ApplicationConstants.USSD_OP_MT_CONT);
-                    sendRequest(request);
-                } else if (message.equals("99")) {
-                    MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.EXIT_MESSAGE, Constants.ApplicationConstants.USSD_OP_MT_FIN);
-                    sendRequest(request);
-                } else {
-                    MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.WELCOME_MESSAGE, Constants.ApplicationConstants.USSD_OP_MT_CONT);
-                    sendRequest(request);
+                            } else if (stage == 3) {
+                                userDAO.updateUserBirthDate(moUssdReq.getSourceAddress(), message);
+                                userMessage = userMessage + Constants.MessageConstants.REG_MSG_AGE;
+                                MtUssdReq request = createRequest(moUssdReq, userMessage, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                sendRequest(request);
+                                userDAO.updateUserFlowStageNumber(moUssdReq.getSourceAddress());
+                            } else if (stage == 4) {
+                                userDAO.updateUserAge(moUssdReq.getSourceAddress(), message);
+                                userMessage = userMessage + Constants.MessageConstants.REG_MSG_USERNAME;
+                                MtUssdReq request = createRequest(moUssdReq, userMessage, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                sendRequest(request);
+                                userDAO.updateUserFlowStageNumber(moUssdReq.getSourceAddress());
+                            } else if (stage == 5) {
+                                try {
+                                    userDAO.updateUserUseName(moUssdReq.getSourceAddress(), message);
+                                    userMessage = userMessage + Constants.MessageConstants.REG_MSG_USERNAME;
+                                    MtUssdReq request = createRequest(moUssdReq, userMessage, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                    sendRequest(request);
+                                    userDAO.updateUserFlowStageNumber(moUssdReq.getSourceAddress());
+
+                                } catch (Exception e) {
+                                    userMessage = Constants.MessageConstants.REG_MSG_USERNAME_ERROR +
+                                            Constants.MessageConstants.REG_MSG_USERNAME;
+                                    MtUssdReq request = createRequest(moUssdReq, userMessage, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                    sendRequest(request);
+                                }
+                            } else {
+                                userDAO.updateUserMessage(moUssdReq.getSourceAddress(), "RegisteringFinished");
+                                MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.REG_MSG_FINISHED, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                sendRequest(request);
+                            }
+                        }
+
+                    } else if(message.equals("2") || userDAO.getMessage(moUssdReq.getSourceAddress()).equals("Searching")) {
+                        if(!userDAO.getMessage(moUssdReq.getSourceAddress()).equals("Searching")) {
+                            userDAO.updateUserMessage(moUssdReq.getSourceAddress(), "Searching");
+                            userDAO.updateUserFlowStageNumberByInput(moUssdReq.getSourceAddress(), 0);
+                            MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.SEARCH_MSG_SEX, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                            sendRequest(request);
+                        } else {
+                            int stage = userDAO.getUserFlowStageNumber(moUssdReq.getSourceAddress());
+                            if (stage == 1) {
+
+                            }
+                        }
+
+                    } else {
+                        MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.WELCOME_MESSAGE, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                        sendRequest(request);
+                    }
                 }
 
             } catch (SdpException e) {
                 e.printStackTrace();
             } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

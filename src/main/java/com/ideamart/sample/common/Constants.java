@@ -57,35 +57,43 @@ public final class Constants {
     }
 
     public static final class MessageConstants {
-        public static final String WELCOME_MESSAGE = "1. Register\n2. Help\n99.Exit";
-        public static final String REGISTER_MENU = "Thanks for registration.\n" +
-                "sms magin details labenu atha.\n0. Back\n99. Exit";
-        public static final String WELCOME_SMS = "welcome to eechat ussd application.\n" +
-                "            obata awashya thorathuru pahatha dakwei.\n" +
+        public static final String WELCOME_MESSAGE = "1.liyapadinchi wenna\n2. Obata Galapena Kenaa Dan Soyaganna" +
+                "\n3.Yaluwek Samaga Chat Kirimata.\n4.Obe Username Eka Nawatha Labaganimata.\n5. Udaw\n" +
+                "6.Apa Gana Thathu\n99.Exit";
+        public static final String HELP_MENU = "Welcome to (App Name) USSD Application\n" +
+                "      Chat Kirimata Upades.\n" +
                 " \n" +
-                "            1.Usename ekak thoraganimata:-\n" +
-                "            eechat <Space> UN <Space> Your name \n" +
-                "            Sent To 77100.\n" +
+                "                   (Appname) Ha Ekathuwu Obata Isthuthi. \n" +
+                "                      \n" +
+                "                    (UssdCode) Dial Kara Anaka 2 Oba, Galapene Kenek Soyaganna\n" +
                 "\n" +
-                "            2.Chat Kirimata:-eechat <Space> chat <Space> Friends Username <Space> Your message \n" +
-                "            sent to 77100\n" +
-                "              Ex:- \"eechat chat udaya hello mchn khomada.. -- sent to 77100\n";
-        public static final String HELP_MENU = "sms ekak magin awashya Thorathuru labenu atha.\n" +
-                "0. Back\n" +
-                "99. Exit";
-        public static final String HELP_SMS = "welcome to eechat ussd application.\n" +
-                "            obata awashya thorathuru pahatha dakwei.\n" +
+                "                    Obe Yahaluwanwath (UssdCode) Dial Kara Oba Samaga Chat Kirimata Pulwan.  \n" +
                 " \n" +
-                "            1.Usename ekak thoraganimata:-\n" +
-                "            eechat <Space> UN <Space> Your name \n" +
-                "            Sent To 77100.\n" +
-                "\n" +
-                "            2.Chat Kirimata:-eechat <Space> chat <Space> Friends Username <Space> Your message \n" +
-                "            sent to 77100\n" +
-                "              Ex:- \"eechat chat udaya hello mchn khomada.. -- sent to 77100\n";
-        public static final String DETAILS_MENU = "Developer: tharinda221@gmail.com\n" +
+                "                     ***Chat Kirimata Upades***\n" +
+                " \n" +
+                "                    Keyword <histhanak> Yaluwage Username <histhanak> Oyage Message Eka Sadahan kara (Number)ta Yawanna. \n" +
+                " \n" +
+                "                   Udaharana:-Keyword Nimesha kohomada oyata? Sent Number. ";
+        public static final String REG_MSG = "\"Welcome to (App Name) USSD Application  \n" +
+                "     \n" +
+                "        Obata Galapenama Kenaa Dan Lesiyenma Soyaganna Puluwan\n\"";
+        public static final String REG_MSG_NAME = "Obe Name Sadahan Karanna.\n";
+        public static final String REG_MSG_SEX = "Oba,\n" +
+                "                Male(Purushayek) Nam Anka 1 \n" +
+                "                Female(Isthri) Anka 2\n" +
+                "               Adala ankaya Thoranna.";
+        public static final String REG_MSG_SEX_ERROR = "Please choose 1 or 2";
+        public static final String REG_MSG_BIRTHDATE = "Obe Upan Dinaya Sadahan Karanna.\n" +
+                "               (Udaharana:1900.01.01)";
+        public static final String REG_MSG_AGE = "Obe Danata Wayasa Sadahan Karanna.\n";
+        public static final String REG_MSG_USERNAME = "Oba Kamathi Usename ekak Sadanna\n" +
+                "               (Udaharana:Nim,Madu,nuwan).";
+        public static final String REG_MSG_USERNAME_ERROR = "UserName exist. Choose another username\n";
+        public static final String DETAILS_MENU = "Sp Name:{} \nDeveloper: tharinda221@gmail.com\n" +
                 "0. Back\n99. Exit";
-        public static final String EXIT_MESSAGE = "Thank you for used eechat. Come again";
+        public static final String REG_MSG_FINISHED = "Keti paniwidayak magin labena upades pilipadinna.\n0.Main menu";
+        public static final String SEARCH_MSG_SEX = "Oba Soyanne\n1.Male(Purusha) Nam\n2.Female(Isthri) Nam";
+        public static final String EXIT_MESSAGE = "Mema Sewawa Bavitha Kara Obata Isthuthu.Nawathath Paminenna (APP Name) Wetha";
 
     }
 }
