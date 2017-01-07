@@ -108,7 +108,8 @@ public class UserDAO {
         try {
             connection = DatabaseConnection.getDBInstance().getConnection();
             stmt = connection.createStatement();
-            String sql = "INSERT INTO " + tableUserName + " VALUES (" + "\"" + address + "\"" + "," + "\"" + name + "\"" + ");";
+            String sql = "INSERT INTO " + tableUserName + " VALUES (" + "\"" + address + "\"" + "," + "\"" + "" + "\""
+                    + "," + "\"" + name + "\"" + "," + "\"" + 0 + "\"" + "," + "\"" + "" + "\"" + ");";
             System.out.println(sql);
             stmt.executeUpdate(sql);
             return true;
@@ -122,6 +123,33 @@ public class UserDAO {
                 } catch (SQLException e) { /* ignored */}
             }
         }
+    }
+
+    public void updateUserUseName(String address, String userName) throws ClassNotFoundException, SQLException {
+        connection = DatabaseConnection.getDBInstance().getConnection();
+        stmt = connection.createStatement();
+        String sql = "UPDATE " + tableUserName + " SET username= userName" + " WHERE address= " + "\"" + address + "\"" + ";";
+        System.out.println(sql);
+        stmt.executeUpdate(sql);
+        connection.close();
+    }
+
+    public void updateUserAge(String address, String userName) throws ClassNotFoundException, SQLException {
+        connection = DatabaseConnection.getDBInstance().getConnection();
+        stmt = connection.createStatement();
+        String sql = "UPDATE " + tableUserName + " SET age = age" + " WHERE address= " + "\"" + address + "\"" + ";";
+        System.out.println(sql);
+        stmt.executeUpdate(sql);
+        connection.close();
+    }
+
+    public void updateUserSex(String address, String userName) throws ClassNotFoundException, SQLException {
+        connection = DatabaseConnection.getDBInstance().getConnection();
+        stmt = connection.createStatement();
+        String sql = "UPDATE " + tableUserName + " SET sex = sex" + " WHERE address= " + "\"" + address + "\"" + ";";
+        System.out.println(sql);
+        stmt.executeUpdate(sql);
+        connection.close();
     }
 
     public String getUserAddressByName(String name) throws ClassNotFoundException {

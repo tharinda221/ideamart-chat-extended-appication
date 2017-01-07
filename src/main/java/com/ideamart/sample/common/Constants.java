@@ -11,18 +11,18 @@ public final class Constants {
         public static final String USSD_OP_MT_FIN = "mt-fin";
 
         //local app apis
-//        public static final String USSD_URL = "http://127.0.0.1:7000/ussd/send";
-//        public static final String SMS_URL = "http://127.0.0.1:7000/sms/send";
-//        public static final String SUBSCRIPTION_MESSAGE_URL = "http://127.0.0.1:7000/subscription/send";
-//        public static final String SUBSCRIPTION_BASESIZE_URL = "http://127.0.0.1:7000/subscription/query-base";
-//        public static final String SUBSCRIPTION_STATUS_URL = "http://127.0.0.1:7000/subscription/getStatus";
+        public static final String USSD_URL = "http://127.0.0.1:7000/ussd/send";
+        public static final String SMS_URL = "http://127.0.0.1:7000/sms/send";
+        public static final String SUBSCRIPTION_MESSAGE_URL = "http://127.0.0.1:7000/subscription/send";
+        public static final String SUBSCRIPTION_BASESIZE_URL = "http://127.0.0.1:7000/subscription/query-base";
+        public static final String SUBSCRIPTION_STATUS_URL = "http://127.0.0.1:7000/subscription/getStatus";
 
         //IdeaMart APIs public
-        public static final String USSD_URL = "https://api.dialog.lk/ussd/send";
-        public static final String SMS_URL = "https://api.dialog.lk/sms/send";
-        public static final String SUBSCRIPTION_MESSAGE_URL = "https://api.dialog.lk/subscription/send";
-        public static final String SUBSCRIPTION_BASESIZE_URL = "https://api.dialog.lk/subscription/query-base";
-        public static final String SUBSCRIPTION_STATUS_URL = "https://api.dialog.lk/subscription/getStatus";
+//        public static final String USSD_URL = "https://api.dialog.lk/ussd/send";
+//        public static final String SMS_URL = "https://api.dialog.lk/sms/send";
+//        public static final String SUBSCRIPTION_MESSAGE_URL = "https://api.dialog.lk/subscription/send";
+//        public static final String SUBSCRIPTION_BASESIZE_URL = "https://api.dialog.lk/subscription/query-base";
+//        public static final String SUBSCRIPTION_STATUS_URL = "https://api.dialog.lk/subscription/getStatus";
 
         // For registration action should be 1 (0 - Opt Out | 1 - Opt In)
         public static final String REG_ACTION = "1";
@@ -31,27 +31,27 @@ public final class Constants {
         public static final String VERSION = "1.0";
 
         //local app credentials
-//        public static final String PASSWORD = "password";
-//        public static final String APP_ID = "APP_00001";
+        public static final String PASSWORD = "password";
+        public static final String APP_ID = "APP_00001";
 
         //hosted app credentials
-        public static final String PASSWORD = "16664c10bf198ee7b75a16bf08a0c117";
-        public static final String APP_ID = "APP_032174";
+//        public static final String PASSWORD = "";
+//        public static final String APP_ID = "";
 
         //local database
-//        public static final String JDBC_URL = "jdbc:mysql://localhost:3306/Pradeep";
-//        public static final String DATABASE_USERNAME = "root";
-//        public static final String DATABASE_PASSWORD = "";
+        public static final String JDBC_URL = "jdbc:mysql://localhost:3306/mangalam";
+        public static final String DATABASE_USERNAME = "root";
+        public static final String DATABASE_PASSWORD = "";
 
         //hosted database credentials
-        public static final String JDBC_URL = "jdbc:mysql://localhost:3306/gknow";
-        public static final String DATABASE_USERNAME = "lahirur";
-        public static final String DATABASE_PASSWORD = "1@H!7uR";
+//        public static final String JDBC_URL = "jdbc:mysql://localhost:3306/{dbname}";
+//        public static final String DATABASE_USERNAME = "";
+//        public static final String DATABASE_PASSWORD = "";
 
-        public static final String DATABASE_TRAFFIC_TABLE_NAME = "eechat";
-        public static final String DATABASE_USER_TABLE_NAME = "eechat_usernames";
+        public static final String DATABASE_TRAFFIC_TABLE_NAME = "mangalam";
+        public static final String DATABASE_USER_TABLE_NAME = "mangalam_users";
 
-        public static final String DATABASE_DASHBOARD_TABLE_NAME = "eechat_dashboard";
+        public static final String DATABASE_DASHBOARD_TABLE_NAME = "mangalam_dashboard";
 
 
     }

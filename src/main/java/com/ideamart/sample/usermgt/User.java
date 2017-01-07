@@ -10,7 +10,6 @@ public class User {
     private String flow;
     private String message;
     private int subscription;
-
     private int status;
 
     public User(String address, String name, String flow, String message, int subcription, int status) {
