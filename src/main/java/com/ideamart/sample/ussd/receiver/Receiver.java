@@ -76,8 +76,7 @@ public class Receiver implements MoUssdListener {
                     if (message.equals("1") || userDAO.getMessage(moUssdReq.getSourceAddress()).equals("Registering")) {
 
                         String userMessage = Constants.MessageConstants.REG_MSG;
-                        String userName = userDAO.getUserNameByAddress(moUssdReq.getSourceAddress());
-                        if (userName.equals("null")) {
+                        if (!userDAO.getMessage(moUssdReq.getSourceAddress()).equals("Registering")) {
                             userDAO.updateUserMessage(moUssdReq.getSourceAddress(), "Registering");
                             userDAO.updateUserFlowStageNumberByInput(moUssdReq.getSourceAddress(), 0);
                             Subscription subscription = new Subscription();
@@ -168,8 +167,9 @@ public class Receiver implements MoUssdListener {
                             }
                         }
 
-                    } else if(message.equals("2") || userDAO.getMessage(moUssdReq.getSourceAddress()).equals("Searching")) {
-                        if(!userDAO.getMessage(moUssdReq.getSourceAddress()).equals("Searching")) {
+                    } else if (message.equals("2") || userDAO.getMessage(moUssdReq.getSourceAddress()).equals("Searching")) {
+                        if (!userDAO.getMessage(moUssdReq.getSourceAddress()).equals("Searching")) {
+                            userDAO.AddSearchTable(moUssdReq.getSourceAddress());
                             userDAO.updateUserMessage(moUssdReq.getSourceAddress(), "Searching");
                             userDAO.updateUserFlowStageNumberByInput(moUssdReq.getSourceAddress(), 0);
                             MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.SEARCH_MSG_SEX, Constants.ApplicationConstants.USSD_OP_MT_CONT);
@@ -177,7 +177,23 @@ public class Receiver implements MoUssdListener {
                         } else {
                             int stage = userDAO.getUserFlowStageNumber(moUssdReq.getSourceAddress());
                             if (stage == 1) {
+                                if (message.equals("1")) {
+                                    userDAO.updateSearchTableSex(moUssdReq.getSourceAddress(), "male");
+                                    MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.SEARCH_MSG_AGE_LIST, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                    sendRequest(request);
+                                    userDAO.updateUserFlowStageNumber(moUssdReq.getSourceAddress());
+                                } else if (message.equals("2")) {
+                                    userDAO.updateSearchTableSex(moUssdReq.getSourceAddress(), "female");
+                                    MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.SEARCH_MSG_AGE_LIST, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                    sendRequest(request);
+                                    userDAO.updateUserFlowStageNumber(moUssdReq.getSourceAddress());
+                                } else {
 
+                                    MtUssdReq request = createRequest(moUssdReq, Constants.MessageConstants.SEARCH_MSG_SEX_ERROR, Constants.ApplicationConstants.USSD_OP_MT_CONT);
+                                    sendRequest(request);
+                                }
+                            } else if(stage == 2) {
+                                userDAO.updateUserMessage(moUssdReq.getSourceAddress(), "SearchingFinished");
                             }
                         }
 

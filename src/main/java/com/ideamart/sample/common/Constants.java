@@ -52,6 +52,7 @@ public final class Constants {
         public static final String DATABASE_USER_TABLE_NAME = "mangalam_users";
 
         public static final String DATABASE_DASHBOARD_TABLE_NAME = "mangalam_dashboard";
+        public static final String DATABASE_SEARCH_TABLE_NAME = "mangalam_search";
 
 
     }
@@ -93,6 +94,13 @@ public final class Constants {
                 "0. Back\n99. Exit";
         public static final String REG_MSG_FINISHED = "Keti paniwidayak magin labena upades pilipadinna.\n0.Main menu";
         public static final String SEARCH_MSG_SEX = "Oba Soyanne\n1.Male(Purusha) Nam\n2.Female(Isthri) Nam";
+        public static final String SEARCH_MSG_SEX_ERROR = "please choose 1 or 2\n";
+        public static final String SEARCH_MSG_AGE_LIST = "1.(Wayasa 18-25)\n2.(Wayasa 25-30)\n" +
+                "                       3.(Wayasa 30-35)\n" +
+                "                       4.(Wayasa 35-40)\n" +
+                "                       5.(Wayasa 40-45)\n" +
+                "                       6.(Wayasa 45-50)\n" +
+                "                       7.(Wayasa 50+)\n";
         public static final String EXIT_MESSAGE = "Mema Sewawa Bavitha Kara Obata Isthuthu.Nawathath Paminenna (APP Name) Wetha";
 
     }
