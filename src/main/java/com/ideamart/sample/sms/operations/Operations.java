@@ -46,7 +46,7 @@ public class Operations {
         String userName = userDAO.getUserNameByAddress(userAddress);
         if (userName.equals("null")) {
             SendMessage sendMessage = new SendMessage();
-            sendMessage.SendMessage(Constants.MessageConstants.HELP_SMS, Constants.ApplicationConstants.APP_ID,
+            sendMessage.SendMessage(Constants.MessageConstants.HELP_MENU, Constants.ApplicationConstants.APP_ID,
                     userAddress, Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
             return;
         }
@@ -62,22 +62,22 @@ public class Operations {
         }
     }
 
-    public void register(String name, String address) throws ClassNotFoundException, SQLException {
-        UserDAO userDAO = new UserDAO();
-        if(!userDAO.userAvailability(address)) {
-            User user = new User(address, null, "1", "sms", 1, 0);
-            userDAO.AddUser(user);
-        }
-        SendMessage sendMessage = new SendMessage();
-        if(userDAO.RegisterUserName(address, name)) {
-            String finalMesage = "You have successfully registered.\n Your use name is " + name;
-            sendMessage.SendMessage(finalMesage, Constants.ApplicationConstants.APP_ID,
-                    address, Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
-        } else {
-            sendMessage.SendMessage("The name you entered is already exist. Please enter another one.", Constants.ApplicationConstants.APP_ID,
-                    address, Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
-        }
-    }
+//    public void register(String name, String address) throws ClassNotFoundException, SQLException {
+//        UserDAO userDAO = new UserDAO();
+//        if(!userDAO.userAvailability(address)) {
+//            User user = new User(address, null, "1", "sms", 1, 0);
+//            userDAO.AddUser(user);
+//        }
+//        SendMessage sendMessage = new SendMessage();
+//        if(userDAO.RegisterUserName(address, name)) {
+//            String finalMesage = "You have successfully registered.\n Your use name is " + name;
+//            sendMessage.SendMessage(finalMesage, Constants.ApplicationConstants.APP_ID,
+//                    address, Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
+//        } else {
+//            sendMessage.SendMessage("The name you entered is already exist. Please enter another one.", Constants.ApplicationConstants.APP_ID,
+//                    address, Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
+//        }
+//    }
 
     public void find(String address) throws ClassNotFoundException, SQLException {
         UserDAO userDAO = new UserDAO();
@@ -85,7 +85,7 @@ public class Operations {
         String name = userDAO.getUserNameByAddress(address);
         if(name.equals("null")) {
             SendMessage sendMessage = new SendMessage();
-            sendMessage.SendMessage(Constants.MessageConstants.HELP_SMS, Constants.ApplicationConstants.APP_ID,
+            sendMessage.SendMessage(Constants.MessageConstants.HELP_MENU, Constants.ApplicationConstants.APP_ID,
                     address, Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
             return;
         } else {

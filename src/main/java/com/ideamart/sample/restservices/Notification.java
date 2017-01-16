@@ -7,6 +7,7 @@ import com.ideamart.sample.common.Constants;
 import com.ideamart.sample.dashboardMgt.Dashboard;
 import com.ideamart.sample.dashboardMgt.DashboardDAO;
 import com.ideamart.sample.sms.send.SendMessage;
+import com.ideamart.sample.usermgt.User;
 import com.ideamart.sample.usermgt.UserDAO;
 
 import javax.servlet.ServletException;
@@ -36,6 +37,11 @@ public class Notification extends HttpServlet {
             String subscriptionStatus = String.valueOf(jobject.get("status")).replaceAll("['\"]", "");
             System.out.println("user status: " + subscriptionStatus);
             String address = "tel:" + String.valueOf(jobject.get("subscriberId")).replaceAll("['\"]", "");
+            UserDAO userDAO = new UserDAO();
+            if (!userDAO.userAvailability(address)) {
+                User user = new User(address, null, "1", "notify", 1, 2);
+                userDAO.AddUser(user);
+            }
             DashboardTrafficUpdate(address, subscriptionStatus);
             DashboardDailyTrafficUpdate(subscriptionStatus);
         } catch (Exception e) {
@@ -69,7 +75,7 @@ public class Notification extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         if(status.equals("REGISTERED")) {
             SendMessage sendMessage = new SendMessage();
-            sendMessage.SendMessage(Constants.MessageConstants.HELP_SMS, Constants.ApplicationConstants.APP_ID,
+            sendMessage.SendMessage(Constants.MessageConstants.HELP_MENU, Constants.ApplicationConstants.APP_ID,
                     address, Constants.ApplicationConstants.PASSWORD, Constants.ApplicationConstants.SMS_URL);
             userDAO.updateUserStatus(address, 1);
         } else if(status.equals("UNREGISTERED")) {

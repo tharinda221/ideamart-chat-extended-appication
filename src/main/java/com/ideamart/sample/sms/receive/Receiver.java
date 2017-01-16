@@ -41,9 +41,7 @@ public class Receiver implements MoSmsListener {
         Operations operations = new Operations();
         try {
             String operation = messageParts[1].toLowerCase();
-            if(operation.equals("un")) {
-                operations.register(messageParts[2], moSmsReq.getSourceAddress());
-            } else if(operation.equals("chat")) {
+            if(operation.equals("chat")) {
                 userDAO.updateCount(moSmsReq.getSourceAddress());
                 String finalString = "";
                 for (int i =3; i< messageParts.length; i++) {

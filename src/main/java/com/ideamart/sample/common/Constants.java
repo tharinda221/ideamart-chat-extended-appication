@@ -58,9 +58,10 @@ public final class Constants {
     }
 
     public static final class MessageConstants {
-        public static final String WELCOME_MESSAGE = "1.liyapadinchi wenna\n2. Obata Galapena Kenaa Dan Soyaganna" +
-                "\n3.Yaluwek Samaga Chat Kirimata.\n4.Obe Username Eka Nawatha Labaganimata.\n5. Udaw\n" +
-                "6.Apa Gana Thathu\n99.Exit";
+        public static final String REGISTER_MESSAGE = "1.register wenna\n000.exit";
+        public static final String WELCOME_MESSAGE = "1. Obata Galapena Kenaa Dan Soyaganna" +
+                "\n2.Yaluwek Samaga Chat Kirimata.\n3.Obe Username Eka Nawatha Labaganimata.\n4. Udaw\n" +
+                "5.Apa Gana Thathu\n99.Exit";
         public static final String HELP_MENU = "Welcome to (App Name) USSD Application\n" +
                 "      Chat Kirimata Upades.\n" +
                 " \n" +
@@ -101,6 +102,13 @@ public final class Constants {
                 "                       5.(Wayasa 40-45)\n" +
                 "                       6.(Wayasa 45-50)\n" +
                 "                       7.(Wayasa 50+)\n";
+        public static final String SEARCH_MSG_AGE_LIST_ERROR = "Please choose the age range between given numbers";
+        public static final String SEARCH_MSG_RESULT = "ketipaniwidayak magin thorathuru labei\n" + "1.chat request ekak danna\n"+
+                "0.main menu";
+        public static final String CHAT_REQUEST_MSG = "chat request sent. you'll receive a message if he/she like to chat with you." +
+                "\n 0.main menu";
+        public static final String CHAT_REQUEST_MSG_SMS = "chat kirimata kamaththen siti";
+        public static final String AGE_ERROR = "Age should be number. ex- 18, 25";
         public static final String EXIT_MESSAGE = "Mema Sewawa Bavitha Kara Obata Isthuthu.Nawathath Paminenna (APP Name) Wetha";
 
     }
